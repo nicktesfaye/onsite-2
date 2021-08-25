@@ -18,6 +18,7 @@ const data = [
   fetchText(csvUrl).then(text =>{
         
         covidData=d3.csvParse(text)
+      console.log("data")
         console.log(covidData)
 
   const width = 900;
