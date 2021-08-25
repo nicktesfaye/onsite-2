@@ -12,6 +12,4 @@ body {
   display: flex;
 }
 
-.rect:hover {
-  opacity: 0.5;
-}
+
