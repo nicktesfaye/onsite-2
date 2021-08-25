@@ -8,6 +8,18 @@ const data = [
     { state: 'Day7', cases: 86000 },
   ];
   
+  const csvUrl ="https://disease.sh/v3/covid-19/historical/all?lastdays=all"
+  
+  const fetchText= async (url) =>{
+    const response = await fetch(url)
+    return await response.text()
+  };
+
+  fetchText(csvUrl).then(text =>{
+        
+        covidData=d3.csvParse(text)
+        console.log(covidData)
+
   const width = 900;
   const height = 650;
   const margin = { top: 50, bottom: 50, left: 50, right: 50 };
@@ -27,14 +39,6 @@ const data = [
     .base(10)
     .domain([1, 10000000000])
     .range([height - margin.bottom, margin.top])
-
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;}
   
   svg
     .append("g")
@@ -78,3 +82,5 @@ const data = [
   svg.append("g").call(xAxis);
   svg.append("g").call(yAxis);
   svg.node();
+
+});
