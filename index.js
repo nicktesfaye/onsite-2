@@ -1,11 +1,11 @@
 const data = [
-    { state: 'TamilNadu', cases: 8000},
-    { state: 'Kerela', cases: 76000 },
-    { state: 'Karnataka', cases: 900000 },
-    { state: 'Maharashtra', cases: 8200000 },
-    { state: 'Andhra', cases: 90000000 },
-    { state: 'Delhi', cases: 750000000 },
-    { state: 'Punjab', cases: 86000 },
+    { state: 'Day1', cases: 8000 },
+    { state: 'Day2', cases: 76000 },
+    { state: 'Day3', cases: 900000 },
+    { state: 'Day4', cases: 8200000 },
+    { state: 'Day5', cases: 90000000 },
+    { state: 'Day6', cases: 750000000 },
+    { state: 'Day7', cases: 86000 },
   ];
   
   const width = 900;
@@ -27,19 +27,41 @@ const data = [
     .base(10)
     .domain([1, 10000000000])
     .range([height - margin.bottom, margin.top])
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;}
   
   svg
     .append("g")
-    .attr("fill", 'royalblue')
     .selectAll("rect")
-    .data(data.sort((a, b) => d3.descending(a.cases, b.cases)))
+    .data(data)
     .join("rect")
       .attr("x", (d, i) => x(i))
       .attr("y", d => y(d.cases))
       .attr('title', (d) => d.cases)
       .attr("class", "rect")
+      .attr("fill", "#c6f74b")
       .attr("height", d => y(1) - y(d.cases))
       .attr("width", x.bandwidth());
+
+    var bar = svg.selectAll("g");
+
+
+    bar
+    .append("text")
+    .data(data)
+    .join("text")
+    .attr("x", (d, i) => x(i)+10)
+    .attr("y", d => y(d.cases)-5 )
+    .attr("font-weight", 'bold')
+    .attr("fill", 'brown')
+    .text((d)=>d.cases);
+  
   
   function yAxis(g) {
     g.attr("transform", `translate(${margin.left}, 0)`)
